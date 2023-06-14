@@ -28,39 +28,39 @@
     </style>
 </head>
 <body>
-    <template id="viewer-1-template">
-    # 안녕하세요.
-    ## 반가워요.
-    - 하하
-    - 호호
-    - 히히
 
-    # 자바
-    ```java
-    int a = 10;
-    int b = 20;
-    System.out.println(a + b);
-    ```
-
-    ```html
-        <script src="경로"></script>
-    ```
-    </template>
     <div id="viewer-1"></div>
+
+    <ul>
+        <li><a href="javascript:show(3);">3번글</a></li>
+        <li><a href="javascript:show(2);">2번글</a></li>
+        <li><a href="javascript:show(1);">1번글</a></li>
+    </ul>
 
     <script>
 
     const Editor = toastui.Editor;
 
-    // id가 'viewer-1-template' 인 엘리먼트를 찾는다.
-    const viewer1TemplateEl = document.querySelector("#viewer-1-template");
-    const viewer1MarkdownSource = viewer1TemplateEl.innerHTML; // 포함하고 있는 내용
+    const viewer1MarkdownSource = "로딩중...";
 
     const viewer1 = Editor.factory({
     el: document.querySelector("#viewer-1"),
     viewer: true,
     initialValue: viewer1MarkdownSource
     });
+
+    function showPage(pageNo) {
+        fetch(pageNo + ".md")
+        .then(response => response.text()) // 응답에서 본문만 취한다.
+        .then(text => {
+            viewer1.setMarkdown(text);
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        })
+    }
     </script>
 </body>
 </html>
