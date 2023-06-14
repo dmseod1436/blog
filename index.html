@@ -44,9 +44,17 @@
     const viewer1MarkdownSource = "로딩중...";
 
     const viewer1 = Editor.factory({
-    el: document.querySelector("#viewer-1"),
-    viewer: true,
-    initialValue: viewer1MarkdownSource
+      el: document.querySelector("#viewer-1"),
+      viewer: true,
+      initialValue: viewer1MarkdownSource,
+      plugins: [
+        [toastui.Editor.plugin.codeSyntaxHighlight, { highlighter: Prism }],
+        katexPlugin,
+        [
+          toastui.Editor.plugin.uml,
+          { rendererURL: "http://www.plantuml.com/plantuml/svg/" }
+        ]
+      ]
     });
 
     function showPage(pageNo) {
